@@ -13,12 +13,26 @@
          padding: 2rem 1.25rem; line-height: 1.7; color: #232629; background: #fdf7f7; }
   @media (prefers-color-scheme: dark) { body { color: #ececec; background: #1a1416; } .card { background: #241b1e; border-color: #ffffff14; } }
   .card { background: #fff; border: 1px solid #00000012; border-radius: 18px;
-          max-width: 34rem; width: 100%; padding: 2.5rem 2rem; }
+          max-width: 36rem; width: 100%; padding: 2.5rem 2rem; }
   h1 { font-size: 1.5rem; margin: 0 0 1.25rem; }
   p { margin: 0 0 1.05rem; }
   .heart { display: inline-block; font-size: 2rem; animation: beat 1.6s ease-in-out infinite; }
   @keyframes beat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.18); } 30% { transform: scale(1); } }
-  .sig { margin-top: 1.75rem; padding-top: 1.25rem; border-top: 1px solid #8882; color: #777; font-size: .92rem; }
+  figure { margin: 0 0 1.6rem; }
+  figure img { width: 100%; max-width: 22rem; display: block; margin: 0 auto;
+               border-radius: 14px; border: 1px solid #00000018; }
+  figcaption { text-align: center; font-size: .85rem; color: #888; margin-top: .6rem; }
+  .idea { margin: 1.6rem 0 0; padding: 1.1rem 1.15rem; border-radius: 14px;
+          background: #fdeef1; border: 1px solid #e8b3bd33; }
+  @media (prefers-color-scheme: dark) { .idea { background: #2b1f23; border-color: #ffffff14; } }
+  .idea p { margin: 0 0 .85rem; font-size: .95rem; color: #666; }
+  @media (prefers-color-scheme: dark) { .idea p { color: #aaa; } }
+  button { font: inherit; font-weight: 600; padding: .7rem 1.3rem; border-radius: 999px;
+           border: 0; background: #d9536f; color: #fff; cursor: pointer; }
+  button:hover { background: #c9465f; }
+  button:active { transform: scale(.98); }
+  #idee { margin: .95rem 0 0; font-weight: 600; min-height: 1.7rem; }
+  .sig { margin-top: 1.9rem; padding-top: 1.25rem; border-top: 1px solid #8882; color: #777; font-size: .92rem; }
   .sig a { color: inherit; }
   @media (prefers-reduced-motion: reduce) { .heart { animation: none; } }
 </style>
@@ -26,6 +40,11 @@
 <body>
   <main class="card">
     <h1><span class="heart">&#10084;&#65039;</span> Hallo Vanessa</h1>
+
+    <figure>
+      <img src="us.jpg" alt="Pixelbild: Saggad und Vanessa auf einer Bank vor einer Ziegelwand">
+      <figcaption>ihr zwei, gemalt von einer Maschine, ausgestellt von einer anderen Maschine</figcaption>
+    </figure>
 
     <p>
       Diese Seite gibt es aus einem sehr unromantischen Grund: Saggad brauchte sie,
@@ -47,10 +66,52 @@
       Der Rest dieser Website geh&ouml;rt Google. Diese eine Seite nicht.
     </p>
 
+    <div class="idea">
+      <p>
+        Und weil eine Seite mit nur Text langweilig ist: hier ist ein Knopf.
+        Er denkt sich etwas f&uuml;r euch aus, jedes Mal etwas anderes.
+      </p>
+      <button type="button" id="btn">Idee f&uuml;r uns</button>
+      <div id="idee"></div>
+    </div>
+
     <div class="sig">
       gebaut von baba, auf Bitten von Saggad<br>
       <a href="index.html">zur&uuml;ck zur langweiligen Seite</a>
     </div>
   </main>
+
+<script>
+  const IDEEN = [
+    "Sonnenuntergang auf der Hackerbr\u00fccke, danach irgendwo in der N\u00e4he was essen.",
+    "Isar entlang bis zur Weideninsel, F\u00fc\u00dfe ins Wasser, Eis auf dem R\u00fcckweg.",
+    "Decke und Brotzeit mitnehmen und im Englischen Garten bis zum Monopteros laufen.",
+    "Dienstags ins Kino: im September kosten im Math\u00e4ser alle Pl\u00e4tze f\u00fcnf Euro.",
+    "Mit der S-Bahn an den Starnberger See, einmal ums Wasser und zur\u00fcck.",
+    "Fahrradtour zum Kloster Sch\u00e4ftlarn, mit Einkehr.",
+    "Sonntags Flohmarkt am Olympiapark, danach an den See.",
+    "Museum am Abend: die langen Donnerstage in der Pinakothek mitnehmen.",
+    "Bouldern in Thalkirchen und danach Burger.",
+    "Tretboot am Kleinhesseloher See und ein Biergarten danach.",
+    "Klettersteig oder einfach nur hoch: auf den Olympiaturm zur blauen Stunde.",
+    "Therme Erding, wenn das Wetter sowieso nichts vorhat.",
+    "Viktualienmarkt ablaufen und essen, was euch zuerst anlacht.",
+    "Ein Tag Murnau: Moor, See, und ein Kaffee vor der Heimfahrt."
+  ];
+
+  const btn = document.getElementById("btn");
+  const out = document.getElementById("idee");
+  let letzte = -1;
+
+  btn.addEventListener("click", () => {
+    let i = Math.floor(Math.random() * IDEEN.length);
+    if (IDEEN.length > 1) {
+      while (i === letzte) i = Math.floor(Math.random() * IDEEN.length);
+    }
+    letzte = i;
+    out.textContent = IDEEN[i];
+    out.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 260, easing: "ease-out" });
+  });
+</script>
 </body>
 </html>
